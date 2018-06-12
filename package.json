@@ -1,0 +1,26 @@
+{
+  "name": "hackerscrap",
+  "version": "1.0.0",
+  "description": "hacker news scraping",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carglass/hackerscrap.git"
+  },
+  "author": "M. Burlat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carglass/hackerscrap/issues"
+  },
+  "homepage": "https://github.com/Carglass/hackerscrap#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5",
+    "request": "^2.87.0"
+  }
+}
