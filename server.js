@@ -35,48 +35,52 @@ mongoose.connect(MONGODB_URI);
 
 // Routes
 
+// MAIN
+
+// a GET route to get the page
+app.get("/", function(req, res) {});
+
 // SCRAPING
 
 // a GET route for scraping hacker news
-app.get("/scrape", function(req,res){});
+app.get("/scrape", function(req, res) {});
 
 // ARTICLES
 
 // a GET Route to get all articles, in order to display them
-app.get("/api/articles", function(req, res){});
+app.get("/api/articles", function(req, res) {});
 
 // a POST Route to Post new articles, mainly after scraping
-app.post("/api/articles", function(req,res){});
+app.post("/api/articles", function(req, res) {});
 
-// a DELETE Route to delete Articles, because they are unused ? 
+// a DELETE Route to delete Articles, because they are unused ?
 // TODO see if necessary
-app.delete("/api/articles", function(req,res){});
+app.delete("/api/articles", function(req, res) {});
 
 // COMMENTS
 
 // a GET route to get comments from an article
 // TODO see if it is useful
-app.get("/api/:article/comments", function(req,res){});
+app.get("/api/:article/comments", function(req, res) {});
 
 // a POST route to post a comment on an article
-app.post("/api/:article/comments", function(req,res){});
+app.post("/api/:article/comments", function(req, res) {});
 
 // a PUT route to edit a comment about an article
 // TODO interesting if Oauth
-app.put("/api/:article/comments", function(req,res){});
+app.put("/api/:article/comments", function(req, res) {});
 
 // a DELETE route to delete a comment about an article
 // TODO interesting if Oauth
-app.delete("/api/:article/comments", function(req,res){});
+app.delete("/api/:article/comments", function(req, res) {});
 
 // VOTES
 
 // a POST route to post an upvote
-app.post("/api/:article/upvote", function(req,res){});
+app.post("/api/:article/upvote", function(req, res) {});
 
 // a POST route to post a downvote
-app.post("/api/:article/downvote", function(req,res){});
-
+app.post("/api/:article/downvote", function(req, res) {});
 
 // A GET route for scraping the echoJS website
 // app.get("/scrape", function(req, res) {
