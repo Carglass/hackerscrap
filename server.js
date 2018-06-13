@@ -33,12 +33,10 @@ app.use(express.static("public"));
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI);
 
+// Static directory
+app.use(express.static("public"));
+
 // Routes
-
-// MAIN
-
-// a GET route to get the page
-app.get("/", function(req, res) {});
 
 // SCRAPING
 
