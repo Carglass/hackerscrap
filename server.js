@@ -41,7 +41,16 @@ app.use(express.static("public"));
 // SCRAPING
 
 // a GET route for scraping hacker news
-app.get("/scrape", function(req, res) {});
+app.get("/scrape", function(req, res) {
+  axios
+    .get("https://www.economist.com/")
+    .then(function(response) {
+      require("./tools/scraper")(response.data);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+});
 
 // ARTICLES
 
