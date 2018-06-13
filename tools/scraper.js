@@ -24,4 +24,5 @@ module.exports = function(html) {
   });
 
   console.log(results);
+  return results;
 };
