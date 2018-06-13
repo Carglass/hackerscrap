@@ -1,8 +1,10 @@
 $(document).ready(function() {
   $.get("./scrape", data => {
-    for (news of data) {
+    for (newsIndex in data) {
       $("body").append(
-        `<div><a href="${news[1]}"><h1>${news[0]}</h1></a></div>`
+        `<div><a href="${data[newsIndex][1]}"><h1>${
+          data[newsIndex][0]
+        }</h1></a></div>`
       );
     }
   });
