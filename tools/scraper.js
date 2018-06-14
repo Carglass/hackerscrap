@@ -6,13 +6,13 @@ module.exports = function(html) {
   var $ = cheerio.load(html);
 
   // An empty array to save the data that we'll scrape
-  var results = [];
+  let results = [];
 
   $("article").each(function(i, element) {
-    var title = $(element)
+    let title = $(element)
       .children("a")
       .attr("aria-label");
-    var link =
+    let link =
       "https://www.economist.com" +
       $(element)
         .children("a")

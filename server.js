@@ -59,7 +59,24 @@ app.get("/scrape", function(req, res) {
 app.get("/api/articles", function(req, res) {});
 
 // a POST Route to Post new articles, mainly after scraping
-app.post("/api/articles", function(req, res) {});
+app.post("/api/articles", function(req, res) {
+  console.log(req.body);
+  var article = {
+    title: req.body.title,
+    link: req.body.link,
+    upvotes: 0,
+    downvotes: 0
+  };
+
+  db.Article.create(article).then(
+    data => {
+      res.json(data);
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
 
 // a DELETE Route to delete Articles, because they are unused ?
 // TODO see if necessary
