@@ -56,11 +56,19 @@ app.get("/scrape", function(req, res) {
 // ARTICLES
 
 // a GET Route to get all articles, in order to display them
-app.get("/api/articles", function(req, res) {});
+app.get("/api/articles", function(req, res) {
+  db.Article.find({}).then(
+    data => {
+      res.json(data);
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
 
 // a POST Route to Post new articles, mainly after scraping
 app.post("/api/articles", function(req, res) {
-  console.log(req.body);
   var article = {
     title: req.body.title,
     link: req.body.link,
@@ -80,32 +88,85 @@ app.post("/api/articles", function(req, res) {
 
 // a DELETE Route to delete Articles, because they are unused ?
 // TODO see if necessary
-app.delete("/api/articles", function(req, res) {});
+app.delete("/api/articles/:id", function(req, res) {
+  let id = req.params.id;
+
+  db.Article.findByIdAndRemove(id).then(
+    data => {
+      res.json(data);
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
 
 // COMMENTS
 
 // a GET route to get comments from an article
 // TODO see if it is useful
-app.get("/api/:article/comments", function(req, res) {});
+app.get("/api/comments/:articles", function(req, res) {});
 
 // a POST route to post a comment on an article
-app.post("/api/:article/comments", function(req, res) {});
+app.post("/api/comments/:article", function(req, res) {
+  
+});
 
 // a PUT route to edit a comment about an article
 // TODO interesting if Oauth
-app.put("/api/:article/comments", function(req, res) {});
+app.put("/api/comments/:article", function(req, res) {});
 
 // a DELETE route to delete a comment about an article
 // TODO interesting if Oauth
-app.delete("/api/:article/comments", function(req, res) {});
+app.delete("/api/comments/:article", function(req, res) {});
 
 // VOTES
 
-// a POST route to post an upvote
-app.post("/api/:article/upvote", function(req, res) {});
+// a PUT route to post an upvote
+app.put("/api/upvote/:article", function(req, res) {
+  let id = req.params.article;
 
-// a POST route to post a downvote
-app.post("/api/:article/downvote", function(req, res) {});
+  db.Article.findById(id).then(
+    article => {
+      console.log(article);
+      article.upvotes = article.upvotes + 1;
+      article.save().then(
+        data => {
+          res.json(data);
+        },
+        error => {
+          res.json(error);
+        }
+      );
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
+
+// a PUT route to post a downvote
+app.put("/api/downvote/:article", function(req, res) {
+  let id = req.params.article;
+
+  db.Article.findById(id).then(
+    article => {
+      console.log(article);
+      article.downvotes = article.downvotes + 1;
+      article.save().then(
+        data => {
+          res.json(data);
+        },
+        error => {
+          res.json(error);
+        }
+      );
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
 
 // A GET route for scraping the echoJS website
 // app.get("/scrape", function(req, res) {
