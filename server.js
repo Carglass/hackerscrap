@@ -105,11 +105,56 @@ app.delete("/api/articles/:id", function(req, res) {
 
 // a GET route to get comments from an article
 // TODO see if it is useful
-app.get("/api/comments/:articles", function(req, res) {});
+app.get("/api/comments/:article", function(req, res) {
+  let id = req.params.article;
+
+  async function populateArticles(articleComments, res) {
+    let comments = [];
+    for (id of articleComments) {
+      let comment = await db.Comment.findById(id);
+      comments.push(comment);
+    }
+    return res.json(comments);
+  }
+
+  db.Article.findById(id).then(
+    article => {
+      results = populateArticles(article.comments, res);
+    },
+    error => {
+      res.json(error);
+    }
+  );
+});
 
 // a POST route to post a comment on an article
 app.post("/api/comments/:article", function(req, res) {
-  
+  let id = req.params.article;
+
+  db.Comment.create(req.body).then(
+    data => {
+      db.Article.findById(id).then(
+        article => {
+          article.comments.push(data._id);
+
+          article.save().then(
+            data => {
+              res.json(data);
+            },
+            error => {
+              res.json(error);
+            }
+          );
+        },
+        error => {
+          res.json(error);
+        }
+      );
+    },
+    error => {
+      res.json(error);
+    }
+  );
 });
 
 // a PUT route to edit a comment about an article
@@ -128,7 +173,6 @@ app.put("/api/upvote/:article", function(req, res) {
 
   db.Article.findById(id).then(
     article => {
-      console.log(article);
       article.upvotes = article.upvotes + 1;
       article.save().then(
         data => {

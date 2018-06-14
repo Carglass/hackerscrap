@@ -18,13 +18,11 @@ var CommentSchema = new Schema({
   },
   // 'upvotes is required and of type Number
   upvotes: {
-    type: Number,
-    required: true
+    type: Number
   },
   // downvotes is required and of type Number
   downvotes: {
-    type: Number,
-    required: true
+    type: Number
   }
 });
 
