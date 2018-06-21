@@ -47,6 +47,7 @@ app.get("/scrape", function(req, res) {
   axios
     .get("https://www.economist.com/")
     .then(function(response) {
+      console.log(response);
       var results = require("./tools/scraper")(response.data);
       res.json(results);
     })
