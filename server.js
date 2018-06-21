@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var cors = require("cors");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -35,6 +36,7 @@ mongoose.connect(MONGODB_URI);
 
 // Static directory
 app.use(express.static("public"));
+app.use(cors());
 
 // Routes
 
