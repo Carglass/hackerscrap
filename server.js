@@ -72,6 +72,7 @@ app.get("/api/articles", function(req, res) {
 
 // a POST Route to Post new articles, mainly after scraping
 app.post("/api/articles", function(req, res) {
+  console.log(req.body);
   var article = {
     title: req.body.article[0],
     link: req.body.article[1],
