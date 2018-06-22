@@ -24,10 +24,14 @@ var app = express();
 
 // Configure middleware
 
+// add CORS to requests and response
+app.use(cors());
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
@@ -36,7 +40,6 @@ mongoose.connect(MONGODB_URI);
 
 // Static directory
 app.use(express.static("public"));
-app.use(cors());
 
 // Routes
 
@@ -72,7 +75,7 @@ app.get("/api/articles", function(req, res) {
 
 // a POST Route to Post new articles, mainly after scraping
 app.post("/api/articles", function(req, res) {
-  console.log(req.body);
+  console.log("body " + JSON.stringify(req.body));
   var article = {
     title: req.body.article[0],
     link: req.body.article[1],
