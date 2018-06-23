@@ -63,14 +63,16 @@ app.get("/scrape", function(req, res) {
 
 // a GET Route to get all articles, in order to display them
 app.get("/api/articles", function(req, res) {
-  db.Article.find({}).then(
-    data => {
-      res.json(data);
-    },
-    error => {
-      res.json(error);
-    }
-  );
+  db.Article.find({})
+    .populate("comments")
+    .then(
+      data => {
+        res.json(data);
+      },
+      error => {
+        res.json(error);
+      }
+    );
 });
 
 // a POST Route to Post new articles, mainly after scraping
@@ -146,7 +148,11 @@ app.post("/api/comments/:article", function(req, res) {
 
           article.save().then(
             data => {
-              res.json(data);
+              db.Article.populate(data, { path: "comments" }).then(
+                dataPopulated => {
+                  res.json(dataPopulated);
+                }
+              );
             },
             error => {
               res.json(error);
@@ -183,7 +189,11 @@ app.put("/api/upvote/:article", function(req, res) {
       article.upvotes = article.upvotes + 1;
       article.save().then(
         data => {
-          res.json(data);
+          db.Article.populate(data, { path: "comments" }).then(
+            dataPopulated => {
+              res.json(dataPopulated);
+            }
+          );
         },
         error => {
           res.json(error);
@@ -206,7 +216,11 @@ app.put("/api/downvote/:article", function(req, res) {
       article.downvotes = article.downvotes + 1;
       article.save().then(
         data => {
-          res.json(data);
+          db.Article.populate(data, { path: "comments" }).then(
+            dataPopulated => {
+              res.json(dataPopulated);
+            }
+          );
         },
         error => {
           res.json(error);
